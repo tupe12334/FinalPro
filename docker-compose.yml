@@ -1,22 +1,35 @@
-version: "3.0"
+version: "3"
 services:
-  mongo:
-    image: mongo
-    restart: always
-    environment:
-      MONGO_INITDB_ROOT_USERNAME: ofek
-      MONGO_INITDB_ROOT_PASSWORD: ofekgabay
+  server:
+    build:
+      context: .
+      args:
+        NPM_LOG_LEVEL: notice
     ports:
-      - 27017:27017
-    volumes:
-      - ./config/mongod.conf:/etc/mongod.conf
-  mongo-express:
-    image: mongo-express
-    restart: always
-    ports:
-      - 8081:8081
+      - "${SERVER_PORT}:3000"
     environment:
-      ME_CONFIG_MONGODB_ADMINUSERNAME: ofek
-      ME_CONFIG_MONGODB_ADMINPASSWORD: ofekgabay
+      POSTGRESQL_URL: "postgres://${POSTGRESQL_USER}:${POSTGRESQL_PASSWORD}@db:5432"
+      BCRYPT_SALT: "${BCRYPT_SALT}"
     depends_on:
-      - mongo
+      - migrate
+  migrate:
+    build:
+      context: .
+      args:
+        NPM_LOG_LEVEL: notice
+    command: npm run db:init
+    working_dir: /app/server
+    environment:
+      POSTGRESQL_URL: "postgres://${POSTGRESQL_USER}:${POSTGRESQL_PASSWORD}@db:5432"
+      BCRYPT_SALT: "${BCRYPT_SALT}"
+    depends_on:
+      - db
+  db:
+    image: postgres:12
+    environment:
+      POSTGRES_USER: ${POSTGRESQL_USER}
+      POSTGRES_PASSWORD: ${POSTGRESQL_PASSWORD}
+    volumes:
+      - postgres:/var/lib/postgresql/data
+volumes:
+  postgres: ~
