@@ -4,7 +4,8 @@
   "description": "FinalPro",
   "main": "index.js",
   "scripts": {
-    "build": "npx lerna bootstrap"
+    "build": "npx lerna bootstrap",
+    "docker": "docker-compose up -d"
   },
   "repository": {
     "type": "git",

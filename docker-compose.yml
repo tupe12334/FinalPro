@@ -20,3 +20,21 @@ services:
       ME_CONFIG_MONGODB_ADMINPASSWORD: ofekgabay
     depends_on:
       - mongo
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8080:8080
+    depends_on:
+      - db
+  db:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_USER: ofek
+      POSTGRES_PASSWORD: ofekgabay
+      POSTGRES_DB: air_port
+    volumes:
+      - /Users/Ofek/Documents/postgresql:/var/lib/postgresql
+    ports:
+      - 5432:5432
