@@ -1,0 +1,23 @@
+{
+  "name": "finalpro",
+  "version": "1.0.0",
+  "description": "FinalPro",
+  "main": "index.js",
+  "scripts": {
+    "build": "npx lerna bootstrap"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tupe12334/FinalPro.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tupe12334/FinalPro/issues"
+  },
+  "homepage": "https://github.com/tupe12334/FinalPro#readme",
+  "dependencies": {
+    "lerna": "^4.0.0"
+  }
+}
