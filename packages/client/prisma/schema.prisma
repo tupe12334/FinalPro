@@ -1,0 +1,44 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Airport {
+  id          String     @id @default(uuid())
+  ICAO        String     @unique
+  Coordinates String
+  runways     Runway[]
+  terminals   Terminal[]
+}
+
+model Runway {
+  direction   Int
+  length      Float
+  airportId   String
+  coordinates String?
+  Airport     Airport @relation(fields: [airportId], references: [id])
+
+  @@id([direction, airportId])
+  @@unique([airportId, direction], name: "Runway.airportId_direction_unique")
+}
+
+model Terminal {
+  airplaneId   String?   @unique
+  airportId    String
+  terminalName String
+  occupied     Airplane? @relation(fields: [airplaneId], references: [id])
+  Airport      Airport   @relation(fields: [airportId], references: [id])
+
+  @@id([terminalName, airportId])
+  @@unique([airportId, terminalName], name: "Terminal.airportId_terminalName_unique")
+}
+
+model Airplane {
+  id           String    @id @default(uuid())
+  registration String    @unique
+  terminal     Terminal?
+}
