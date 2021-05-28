@@ -30,6 +30,9 @@ model Terminal {
   airplaneId   String?   @unique
   airportId    String
   terminalName String
+  lat          Float
+  lng          Float
+  open         Boolean   @default(false)
   occupied     Airplane? @relation(fields: [airplaneId], references: [id])
   Airport      Airport   @relation(fields: [airportId], references: [id])
 

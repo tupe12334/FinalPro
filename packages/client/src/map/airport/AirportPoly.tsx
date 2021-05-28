@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from "react";
 import { Airport } from ".prisma/client";
-import AirportsMarker from "./AirportsMarker";
-import AirportRunways from "./AirportRunways";
 import axios from "axios";
-import TerminalMarker from "./TerminalMarker";
+import React, { useEffect, useState } from "react";
+import AirportRunways from "./AirportRunways";
+import AirportsMarker from "./AirportsMarker";
+import TerminalsContainer from "./Terminals.Container";
 
 interface props {
   airport: Airport;
@@ -26,7 +26,7 @@ const AirportPoly = (props: props) => {
     <>
       <AirportsMarker airport={props.airport} />
       <AirportRunways airport={props.airport} runways={runways} />
-      <TerminalMarker airport={props.airport} />
+      <TerminalsContainer airport={props.airport} />
     </>
   );
 };

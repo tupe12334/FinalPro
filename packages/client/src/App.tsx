@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useEffect } from "react";
 import "./App.css";
 import MapContainer from "./map/MapContainer";
+import "leaflet/dist/leaflet.css";
 
 require("dotenv").config();
 
