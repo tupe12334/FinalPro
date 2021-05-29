@@ -3,6 +3,8 @@ import React, { useEffect } from "react";
 import "./App.css";
 import MapContainer from "./map/MapContainer";
 import "leaflet/dist/leaflet.css";
+import Dashboard from "./dashboard/Dashboard";
+import Page from "./layout/Page";
 
 require("dotenv").config();
 
@@ -20,7 +22,7 @@ function App() {
   // }, []);
   return (
     <div className="App">
-      <MapContainer />
+      <Page />
     </div>
   );
 }

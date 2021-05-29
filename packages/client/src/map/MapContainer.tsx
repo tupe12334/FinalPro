@@ -3,12 +3,12 @@ import { MapContainer as MC, TileLayer } from "react-leaflet";
 import InsideMap from "./InsideMap";
 const MapContainer = () => {
   return (
-    <div style={{ width: 100, height: 100 }}>
+    <div>
       <MC
         center={[51.505, -0.09]}
         zoom={1}
         scrollWheelZoom={false}
-        style={{ height: "100vh", width: "100vh" }}
+        style={{ height: "90vh", width: "100%" }}
       >
         <InsideMap />
         <TileLayer
