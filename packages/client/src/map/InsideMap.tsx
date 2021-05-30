@@ -1,12 +1,9 @@
 import axios from "axios";
-import { LatLng, LatLngBounds } from "leaflet";
 import { useEffect, useState } from "react";
 import { useMap } from "react-leaflet";
-import AirplanesMarkers from "./AirplanesMarkers";
-import AirportsMarker from "./airport/AirportsMarker";
-import AirportRunways from "./airport/AirportRunways";
+import AirplanesContainer from "./airplane/AirplanesContainer";
 import AirportsContainer from "./AirportsContainer";
-import AirplanesContainer from "./AirplanesContainer";
+import WaypointsContainer from "./waypoint/Waypoints.Container";
 const InsideMap = () => {
   const [airports, setAirports] = useState<any[]>([]);
   const map = useMap();
@@ -34,6 +31,7 @@ const InsideMap = () => {
     <>
       <AirportsContainer airports={airports} />
       <AirplanesContainer />
+      <WaypointsContainer />
     </>
   );
 };

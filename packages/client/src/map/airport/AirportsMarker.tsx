@@ -1,8 +1,6 @@
 import { Airport } from ".prisma/client";
-import { DivIcon, Icon } from "leaflet";
 import React from "react";
-import { Marker } from "react-leaflet";
-import airplane from "../../assets/airplane.svg";
+import { Marker, SVGOverlay } from "react-leaflet";
 
 interface props {
   airport: Airport;
@@ -10,10 +8,37 @@ interface props {
 const AirportsMarker = (props: props) => {
   const cor = props.airport.Coordinates.split("/");
   return (
-    <Marker
-      position={{ lat: Number(cor[0]), lng: Number(cor[1]) }}
-      title={props.airport.ICAO}
-    ></Marker>
+    <>
+      {/* <Marker
+        position={{ lat: Number(cor[0]), lng: Number(cor[1]) }}
+        title={props.airport.ICAO}
+      ></Marker> */}
+      <SVGOverlay
+        attributes={{}}
+        bounds={[
+          [Number(cor[0]) - 0.003, Number(cor[1]) - 0.003],
+          [Number(cor[0]) + 0.003, Number(cor[1]) + 0.003],
+        ]}
+      >
+        <svg
+          version="1.1"
+          xmlns="http://www.w3.org/2000/svg"
+          x="0px"
+          y="0px"
+          viewBox="0 0 1000 1000"
+          enable-background="new 0 0 1000 1000"
+        >
+          <metadata>
+            Svg Vector Icons : http://www.onlinewebfonts.com/icon{" "}
+          </metadata>
+          <g>
+            <g transform="translate(0.000000,511.000000) scale(0.100000,-0.100000)">
+              <path d="M4627.9,4997.8c-783-81.8-1539.5-415-2122.1-932.3c-472.3-419.1-848.4-977.2-1052.9-1564c-392.5-1128.5-241.2-2291.8,449.8-3451c300.5-502.9,697.2-1005.9,1543.5-1954.5c711.5-797.3,1220.5-1425,1443.4-1778.7c92-143.1,128.8-143.1,220.8,0c229,363.9,707.4,954.8,1465.8,1809.3c703.3,793.2,954.8,1097.9,1241,1494.5c707.4,989.5,1030.4,2040.3,922.1,3019.6c-184,1686.7-1441.3,3031.9-3103.4,3318.1C5361.9,5005.9,4881.4,5024.3,4627.9,4997.8z M7526.9,2562.8c132.9-40.9,184-163.6,106.3-249.4c-26.6-30.7-543.8-341.4-1151-691C5875,1272.8,4967.3,747.4,4462.3,455c-507-294.4-930.2-527.5-950.7-523.4c-55.2,8.2-1167.4,715.6-1179.6,748.3c-30.7,79.7,106.3,171.7,253.5,169.7c51.1,0,269.9-47,484.5-100.2l390.5-100.2l462,267.8c255.6,147.2,464.1,271.9,464.1,278s-255.6,167.7-568.4,359.8c-627.6,384.3-631.7,390.5-511.1,502.9c79.7,73.6,249.4,159.5,323,159.5c28.6,0,451.8-92,940.4-206.5l889.3-206.5l584.7,337.3c609.2,353.7,740.1,408.9,1014,443.6C7212.1,2603.7,7428.8,2593.5,7526.9,2562.8z M6349.3,698.3c98.1-159.5,112.4-196.3,118.6-312.8c10.2-149.2-26.6-233.1-104.3-233.1c-47,0-1220.5,472.3-1218.5,490.7c0,6.1,204.4,126.7,453.9,269.9l451.8,259.6l94-147.2C6198,943.6,6290,796.4,6349.3,698.3z" />
+            </g>
+          </g>
+        </svg>
+      </SVGOverlay>
+    </>
   );
 };
 

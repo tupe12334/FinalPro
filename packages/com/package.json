@@ -1,0 +1,23 @@
+{
+  "name": "com",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "keywords": [],
+  "scripts": {
+    "start": "./dist/indedx.js",
+    "build": "tsc",
+    "start:debug": "nodemon ./src/index.ts"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "http": "^0.0.1-security",
+    "socket.io": "^4.1.2"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.12"
+  }
+}

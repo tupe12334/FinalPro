@@ -20,6 +20,7 @@ model Runway {
   length      Float
   airportId   String
   coordinates String?
+  valid       Boolean @default(true)
   Airport     Airport @relation(fields: [airportId], references: [id])
 
   @@id([direction, airportId])
@@ -27,9 +28,9 @@ model Runway {
 }
 
 model Terminal {
+  terminalName String
   airplaneId   String?   @unique
   airportId    String
-  terminalName String
   lat          Float
   lng          Float
   open         Boolean   @default(false)
@@ -43,5 +44,19 @@ model Terminal {
 model Airplane {
   id           String    @id @default(uuid())
   registration String    @unique
+  model        String?
+  submodel     String?
+  lat          Float?
+  lng          Float?
+  AGL          Float
+  heading      Decimal?
   terminal     Terminal?
+}
+
+model Waypoint {
+  name String
+  lat  Float
+  lng  Float
+
+  @@id([name, lat, lng])
 }
