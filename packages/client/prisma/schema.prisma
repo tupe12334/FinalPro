@@ -11,6 +11,7 @@ model Airport {
   id          String     @id @default(uuid())
   ICAO        String     @unique
   Coordinates String
+  Gate        Gate[]
   runways     Runway[]
   terminals   Terminal[]
 }
@@ -20,8 +21,9 @@ model Runway {
   length      Float
   airportId   String
   coordinates String?
-  valid       Boolean @default(true)
-  Airport     Airport @relation(fields: [airportId], references: [id])
+  valid       Boolean    @default(true)
+  Airport     Airport    @relation(fields: [airportId], references: [id])
+  Airplane    Airplane[]
 
   @@id([direction, airportId])
   @@unique([airportId, direction], name: "Runway.airportId_direction_unique")
@@ -29,28 +31,35 @@ model Runway {
 
 model Terminal {
   terminalName String
-  airplaneId   String?   @unique
   airportId    String
   lat          Float
   lng          Float
-  open         Boolean   @default(false)
-  occupied     Airplane? @relation(fields: [airplaneId], references: [id])
-  Airport      Airport   @relation(fields: [airportId], references: [id])
+  valid        Boolean    @default(false)
+  Airport      Airport    @relation(fields: [airportId], references: [id])
+  Airplane     Airplane[]
+  Gate         Gate[]
 
   @@id([terminalName, airportId])
   @@unique([airportId, terminalName], name: "Terminal.airportId_terminalName_unique")
 }
 
 model Airplane {
-  id           String    @id @default(uuid())
-  registration String    @unique
-  model        String?
-  submodel     String?
-  lat          Float?
-  lng          Float?
-  AGL          Float
-  heading      Decimal?
-  terminal     Terminal?
+  id                   String    @id @default(uuid())
+  registration         String    @unique
+  model                String?
+  submodel             String?
+  lat                  Float?
+  lng                  Float?
+  AGL                  Float
+  heading              Decimal?
+  runwayAirportId      String?
+  runwayDirection      Int?
+  fault                Boolean   @default(false)
+  terminalAirportId    String?
+  terminalTerminalName String?
+  Runway               Runway?   @relation(fields: [runwayDirection, runwayAirportId], references: [direction, airportId])
+  Terminal             Terminal? @relation(fields: [terminalTerminalName, terminalAirportId], references: [terminalName, airportId])
+  Gate                 Gate[]
 }
 
 model Waypoint {
@@ -59,4 +68,17 @@ model Waypoint {
   lng  Float
 
   @@id([name, lat, lng])
+}
+
+model Gate {
+  name                 String
+  airplaneId           String?
+  terminalTerminalName String
+  terminalAirportId    String
+  airportId            String?
+  Airplane             Airplane? @relation(fields: [airplaneId], references: [id])
+  Airport              Airport?  @relation(fields: [airportId], references: [id])
+  Terminal             Terminal  @relation(fields: [terminalTerminalName, terminalAirportId], references: [terminalName, airportId])
+
+  @@id([name, terminalTerminalName])
 }

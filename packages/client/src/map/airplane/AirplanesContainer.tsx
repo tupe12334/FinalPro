@@ -22,7 +22,7 @@ const AirplanesContainer = () => {
         if (airplane.lat) {
           return (
             <>
-              <AirplaneMarker airplane={airplane} />
+              <AirplaneMarker airplane={airplane} key={airplane.id} />
             </>
           );
         }
